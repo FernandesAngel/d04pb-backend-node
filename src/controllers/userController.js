@@ -1,6 +1,7 @@
 import users from "../models/user.js";
 
 export default class UserController {
+
   static addUser = (req, res) => {
     const user = new users(req.body);
     user.save((e) => {
