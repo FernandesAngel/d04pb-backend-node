@@ -2,6 +2,39 @@ import users from "../models/user.js";
 
 export default class UserController {
 
+  static getUsers = async (req, res) => {
+    try {
+      const { page = 1, limit = 3, search = '' } = req.query;
+
+      const pageNumber = Number(page);
+      const limitNumber = Number(limit);
+
+      const count = await users.countDocuments({name: {$regex: search, $options: 'i'}});
+
+      const data = await users
+        .find({name: {$regex: search, $options: 'i'}})
+        .select("-password")
+        .limit(limitNumber * 1)
+        .skip((pageNumber - 1) * limitNumber)
+        .exec();
+
+      const resultData = {
+        data,
+        page: pageNumber,
+        limit: limitNumber,
+        totalElements: count,
+        totalPages: Math.ceil(count / limitNumber),
+      };
+
+      res.status(200).json(resultData);
+    } catch (e) {
+      res.status(500).send({
+        message: `${e.message} - não foi possível encontrar os usuários.`,
+      });
+    }
+
+  };
+
   static getUserById = (req, res) => {
     let id = req.params.id;
     users.findById(id, (e, user) => {
