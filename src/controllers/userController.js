@@ -2,6 +2,47 @@ import users from "../models/user.js";
 
 export default class UserController {
 
+  static getUserById = (req, res) => {
+    let id = req.params.id;
+    users.findById(id, (e, user) => {
+      if (e) {
+        res
+          .status(404)
+          .send({ message: `${e.message} - ID do livro não foi localizado` });
+      } else {
+        const {
+          _id,
+          name,
+          cpf,
+          birthDate,
+          email,
+          address,
+          number,
+          complement,
+          city,
+          state,
+          country,
+          zipCode,
+        } = user;
+        const result = {
+          _id,
+          cpf,
+          name,
+          birthDate,
+          email,
+          address,
+          number,
+          complement,
+          city,
+          state,
+          country,
+          zipCode,
+        };
+        res.status(200).send(result);
+      }
+    });
+  };
+
   static addUser = (req, res) => {
     const user = new users(req.body);
     user.save((e) => {
