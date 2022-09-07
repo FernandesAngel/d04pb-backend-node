@@ -6,6 +6,7 @@ const router = express.Router()
 
 router
   .post("/api/v1/user", UserController.addUser)
+  .put("/api/v1/users/:id", UserController.updateUser)
   .delete("/api/v1/users/:id", UserController.deleteUser)
 
 
