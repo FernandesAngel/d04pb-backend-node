@@ -48,48 +48,40 @@ export default class UserController {
     }
   };
 
-  static addUser = (req, res) => {
-    const user = new users(req.body);
-    user.save((e) => {
-      if (e) {
-        res
+  static addUser = async (req, res) => {
+    try {
+      const user = new users(req.body);
+      const result = await user.save();
+      res.status(201).send(result.toJSON());
+
+    } catch (e) {
+      res
           .status(500)
           .send({ message: `${e.message} - falha ao cadastrar usuário.` });
-      } else {
-        res.status(201).send(user.toJSON());
-      }
-    });
+    }
   };
 
-  static updateUser = (req, res) => {
-    const id = req.params.id;
-    users.findByIdAndUpdate(
-      id,
-      {
-        $set: req.body,
-      },
-      (e) => {
-        if (!e) {
-          res.status(200).send({ message: "Usuário atualizado com sucesso!" });
-        } else {
-          res.status(400).send({
-            message: `${e.message} - falha ao atualizar usuário ou usuário não encontrado`,
-          });
-        }
-      }
-    );
+  static updateUser = async (req, res) => {
+    try {
+      const id = req.params.id;
+      await users.findByIdAndUpdate(id,{ $set: req.body});
+      res.status(200).send({ message: "Usuário atualizado com sucesso!" });
+    } catch (e) {
+      res.status(400).send({
+        message: `${e.message} - falha ao atualizar usuário ou usuário não encontrado`,
+      });
+    }
   };
 
-  static deleteUser = (req, res) => {
-    const id = req.params.id;
-    users.findByIdAndDelete(id, (e) => {
-      if (e) {
-        res.status(404).send({
-          message: `${e.message} - falha ao deletar usuário ou usuário não encontrado`,
-        });
-      } else {
-        res.status(204);
-      }
-    });
+  static deleteUser = async (req, res) => {
+    try {
+      const id = req.params.id;
+      await users.findByIdAndDelete(id);
+      res.status(204).send();
+    } catch (e) {
+      res.status(404).send({
+        message: `${e.message} - falha ao deletar usuário ou usuário não encontrado`,
+      });
+    }
   };
 }
