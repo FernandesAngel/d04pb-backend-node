@@ -5,19 +5,19 @@ const userSchema = new mongoose.Schema(
     id: {type: String},
     name: {
       type: String,
-      required: [true, "Nome obrigatório"]
+      required: [true, "Name required"]
     },
     cpf: {
       type: String,
-      required: [true, "CPF obrigatório"]
+      required: [true, "CPF required"]
     },
     birthDate: {
       type: String,
-      required: [true, "Data de nascimento obrigatória"]
+      required: [true, "BirthDate required"]
     },
     email: {
       type: String,
-      required: [true, "Email obrigatório"]
+      required: [true, "Email required"]
     },
     password: {
       type: String,
@@ -25,31 +25,31 @@ const userSchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      required: [true, "Endereço obrigatório"]
+      required: [true, "Address required"]
     },
     number: {
       type: String,
-      required: [true, "Número obrigatório"]
+      required: [true, "Number required"]
     },
     complement: {
       type: String,
-      required: [true, "Complemento obrigatório"]
+      required: [true, "Complement required"]
     },
     city: {
       type: String,
-      required: [true, "Cidade obrigatória"]
+      required: [true, "City required"]
     },
     state: {
       type: String,
-      required: [true, "Estado obrigatório"]
+      required: [true, "State required"]
     },
     country: {
       type: String,
-      required: [true, "País obrigatório"]
+      required: [true, "Country required"]
     },
     zipCode: {
       type: String,
-      required: [true, "CEP obrigatório"]
+      required: [true, "zipCode required"]
     },
   }
 );

@@ -29,7 +29,7 @@ export default class UserController {
       res.status(200).json(resultData);
     } catch (e) {
       res.status(500).send({
-        message: `${e.message} - não foi possível encontrar os usuários.`,
+        message: `${e.message} - could not get users.`,
       });
     }
 
@@ -44,7 +44,7 @@ export default class UserController {
     } catch (e) {
       res
           .status(404)
-          .send({ message: `${e.message} - usuário não localizado` });
+          .send({ message: `${e.message} - user not found` });
     }
   };
 
@@ -57,7 +57,7 @@ export default class UserController {
     } catch (e) {
       res
           .status(500)
-          .send({ message: `${e.message} - falha ao cadastrar usuário.` });
+          .send({ message: `${e.message} - could not add user.` });
     }
   };
 
@@ -65,10 +65,10 @@ export default class UserController {
     try {
       const id = req.params.id;
       await users.findByIdAndUpdate(id,{ $set: req.body});
-      res.status(200).send({ message: "Usuário atualizado com sucesso!" });
+      res.status(200).send({ message: "User successfully updated!" });
     } catch (e) {
       res.status(404).send({
-        message: `${e.message} - falha ao atualizar usuário ou usuário não encontrado`,
+        message: `${e.message} - user not found or updating went wrong.`,
       });
     }
   };
@@ -80,7 +80,7 @@ export default class UserController {
       res.status(204).send();
     } catch (e) {
       res.status(404).send({
-        message: `${e.message} - falha ao deletar usuário ou usuário não encontrado`,
+        message: `${e.message} - user not found or deleting went wrong.`,
       });
     }
   };
