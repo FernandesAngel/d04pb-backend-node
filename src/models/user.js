@@ -57,19 +57,3 @@ const userSchema = new mongoose.Schema(
 const users = mongoose.model('users', userSchema)
 
 export default users;
-
-
-// {
-// 	"name": "Maria Silva",
-// 	"cpf": "11111111111",
-// 	"birthDate":  {% now 'iso-8601', '' %},
-// 	"email": "maria@teste.com",
-// 	"password": "123456",
-// 	"address": "rua pedestre",
-// 	"number": "12",
-// 	"complemente": "casa",
-// 	"city": "São Paulo",
-// 	"state": "SP",
-// 	"country": "Brasil",
-// 	"zipCode": "88780-000"
-// }
