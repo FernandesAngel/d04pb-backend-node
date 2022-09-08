@@ -44,7 +44,7 @@ export default class UserController {
     } catch (e) {
       res
           .status(404)
-          .send({ message: `${e.message} - ID do livro não foi localizado` });
+          .send({ message: `${e.message} - usuário não localizado` });
     }
   };
 
@@ -67,7 +67,7 @@ export default class UserController {
       await users.findByIdAndUpdate(id,{ $set: req.body});
       res.status(200).send({ message: "Usuário atualizado com sucesso!" });
     } catch (e) {
-      res.status(400).send({
+      res.status(404).send({
         message: `${e.message} - falha ao atualizar usuário ou usuário não encontrado`,
       });
     }
